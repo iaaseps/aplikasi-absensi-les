@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Rekap Les TIK</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- link CSS -->
+    <link rel="stylesheet" href="rekap-style.css">
+  </head>
+
+  <body>
+    <!--Main Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent .navbar-nav-scroll">
+        <div class="container" style="display:flex;justify-content: space-between;">
+          <a class="navbar-brand" style="color:#dedede;">Absen Rekap Les TIK</a>
+          <div class="navbar-nav">
+            <!-- <a class="nav-link" aria-current="page" href="index.html">Home</a> -->
+            <!-- <a class="nav-link" href="#">Features</a> -->
+          </div>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main>
+      <div class="table-responsive-sm">
+        <!-- Table -->
+        <table class="table table-striped table-hover table-hover align-middle">
+          <thead id="table-head" scope="col" class="table-light"></thead>
+          <tbody id="table-body" scope="row"></tbody>
+        </table>
+        <!-- Table -->
+      </div>
+            <div class="bulat1"></div>
+            <div class="bulat2"></div>
+            <div class="bulat3"></div>
+            <div class="bulat4"></div>
+            <div class="bulat5"></div>
+            <div class="bulat6"></div>
+            <div class="bulat7"></div>
+            <div class="bulat8"></div>
+    </main>
+    
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer></footer>
+    <!--Footer-->
+  </body>
+
+  <!-- MDB ESSENTIAL -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Google API -->
+  <script src="https://apis.google.com/js/api.js"></script>
+  <!-- easyData -->
+  <script type="text/javascript" src="js/easyData-google-sheets.js"></script>
+
+  <!-- easyData - Creating table -->
+  <script>
+    {
+      {
+        // Your API KEY
+        const API_KEY = "AIzaSyDtAT6rqXDMoCEtccYq_7Zeos5wuroRc1Y";
+
+        function displayResult2(response) {
+          let tableHead = "";
+          let tableBody = "";
+
+          response.result.values.forEach((row, index) => {
+            if (index === 0) {
+              tableHead += "<tr>";
+              row.forEach((val) => (tableHead += "<th>" + val + "</th>"));
+              tableHead += "</tr>";
+            } else {
+              tableBody += "<tr>";
+              row.forEach((val) => (tableBody += "<td>" + val + "</td>"));
+              tableBody += "</tr>";
+            }
+          });
+
+          document.getElementById("table-head").innerHTML = tableHead;
+          document.getElementById("table-body").innerHTML = tableBody;
+        }
+
+        function loadData() {
+          // Spreadsheet ID
+          const spreadsheetId = "11l_JjuLLCKzdYkINUYH2CPk_DyXgiCTfGPN9r9BjbDQ";
+          const range = "A:Z";
+          getPublicValues({ spreadsheetId, range }, displayResult2);
+        }
+
+        window.addEventListener("load", (e) => {
+          initOAuthClient({ apiKey: API_KEY });
+        });
+
+        document.addEventListener("gapi-loaded", (e) => {
+          loadData();
+        });
+      }
+    }
+  </script>
+</html>
